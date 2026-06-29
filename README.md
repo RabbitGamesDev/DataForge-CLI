@@ -34,3 +34,34 @@
    ```bash
    git clone [https://github.com/RabbitGamesDev/FataForge-CLI.git](https://github.com/RabbitGamesDev/FataForge-CLI.git)
    cd FataForge-CLI
+
+
+   Instala las dependencias:
+
+Bash
+pip install -r requirements.txt
+Ejecución:
+
+Bash
+python main.py
+La herramienta te guiará automáticamente para configurar tu API Key de Groq.
+
+💡 ¿Por qué usar DataForge?
+⚡ Velocidad: Obtén auditorías y explicaciones en segundos.
+
+🧠 Contexto inteligente: La IA no solo lee archivos, entiende cómo interactúan entre sí.
+
+🛡️ Privacidad: Tu código es procesado localmente y tú tienes el control total de qué información se analiza.
+
+🧩 Escalabilidad: Estructura modular diseñada para crecer junto a tus proyectos.
+
+🤝 Contribuciones
+¡Las contribuciones son bienvenidas! Si tienes una idea para mejorar la herramienta o añadir un nuevo comando:
+
+Haz un Fork del proyecto.
+
+Crea una rama para tu nueva funcionalidad (git checkout -b feature/AmazingFeature).
+
+Haz Commit de tus cambios.
+
+Abre un Pull Request.
