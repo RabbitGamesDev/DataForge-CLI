@@ -67,56 +67,97 @@ Whether you're exploring a new codebase, organizing documentation or preparing t
 
 # ⚡ Installation
 
-## Requirements
-
-Before starting, make sure you have installed:
-
-- Python **3.10 or newer**
-- A Groq API Key
-- Git (optional, but recommended)
+DataForge CLI can be installed in **two different ways** depending on your experience.
 
 ---
 
-## 1. Clone the repository
+## 📦 Option 1 — Download as ZIP (Recommended)
 
-```bash
-git clone https://github.com/RabbitGamesDev/FataForge-CLI.git
+If you don't have Git installed, this is the easiest way.
+
+### Step 1
+
+Open the GitHub repository.
+
+### Step 2
+
+Click the green **Code** button.
+
+### Step 3
+
+Select **Download ZIP**.
+
+### Step 4
+
+Extract the downloaded ZIP file anywhere on your computer.
+
+After extracting, you should have a folder similar to this:
+
+```text
+DataForge-CLI/
+│
+├── README.md
+├── LICENSE
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── SECURITY.md
+│
+└── dataforge-cli/
+    ├── main.py
+    ├── requirements.txt
+    ├── dataforge/
+    └── ...
 ```
 
----
+### Step 5
 
-## 2. Enter the project
+Open the **dataforge-cli** folder.
 
-```bash
-cd FataForge-CLI/dataforge-cli
+### Step 6
+
+Open a terminal inside that folder.
+
+On **Windows**:
+
+- Hold **Shift**
+- Right click inside the folder
+- Select **Open in Terminal**
+
+Or simply open the folder in **Visual Studio Code** and use:
+
+```
+Terminal → New Terminal
 ```
 
-> The actual application lives inside the `dataforge-cli` folder.
+### Step 7
 
----
-
-## 3. Install dependencies
+Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+### Step 8
 
-## 4. Run DataForge
+Run DataForge CLI:
 
 ```bash
 python main.py
 ```
 
-If everything is correct, you'll see something similar to:
+On the first launch, DataForge will automatically guide you through the initial setup, including your **Groq API Key**.
 
-```
-Welcome to DataForge CLI!
+---
 
-It looks like this is your first time.
+## 💻 Option 2 — Clone with Git
 
-Let's configure your environment.
+If you already have Git installed:
+
+```bash
+git clone https://github.com/RabbitGamesDev/DataForge-CLI.git
+cd DataForge-CLI/dataforge-cli
+pip install -r requirements.txt
+python main.py
 ```
 
 ---
