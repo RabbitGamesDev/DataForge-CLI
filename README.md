@@ -26,7 +26,7 @@ Built with a simple philosophy:
 
 
 > [!TIP]
-> **New to GitHub?**
+> New to GitHub?
 >
 > No worries. DataForge can be installed simply by downloading the repository as a ZIP file—no Git knowledge required.
 
