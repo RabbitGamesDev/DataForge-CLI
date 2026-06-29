@@ -24,6 +24,7 @@ Built with a simple philosophy:
 
 ### **Local-first. Fast. Professional.**
 
+
 > [!TIP]
 > **New to GitHub?**
 >
