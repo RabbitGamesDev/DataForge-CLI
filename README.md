@@ -2,13 +2,15 @@
 
 # 🛠️ DataForge CLI
 
-### AI-powered code intelligence for developers.
+### Your AI consultant inside the terminal.
 
-Analyze, document and understand software projects directly from your terminal.
+**Understand. Analyze. Document.**
+
+Transform complex codebases into actionable technical knowledge using AI-powered analysis directly from your terminal.
 
 <br>
 
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
 ![Groq](https://img.shields.io/badge/Powered%20by-Groq-F55036?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/Windows-macOS-Linux-4CAF50?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue?style=for-the-badge)
@@ -16,273 +18,262 @@ Analyze, document and understand software projects directly from your terminal.
 
 ---
 
-**DataForge CLI** transforma cualquier proyecto de software en documentación técnica, resúmenes inteligentes y análisis arquitectónicos utilizando IA.
+**DataForge CLI** is an AI-powered toolkit that helps developers understand, analyze and document any codebase in minutes.
 
-Pensado para desarrolladores que desean comprender grandes bases de código en minutos en lugar de horas.
+Built with a **Local-first. Fast. Professional.** philosophy.
 
 </div>
 
 ---
 
-# ✨ Características
+# ✨ Overview
 
-- 🔍 Escaneo inteligente de proyectos
-- 🤖 IA contextual sobre todo el código
-- 📄 Documentación automática
-- 🗺️ Mapa de arquitectura del proyecto
-- 📚 Onboarding para nuevos desarrolladores
-- 📊 Reportes profesionales
-- ⚡ Procesamiento rápido mediante Groq
-- 🔒 Configuración local y privada
-- 🌎 Windows, macOS y Linux
+Modern software projects grow fast.
 
----
+Understanding an unfamiliar codebase, documenting it properly, or auditing hundreds of files can easily consume hours—or even days.
 
-# 🚀 ¿Qué puede hacer?
+**DataForge CLI** was created to eliminate that friction.
 
-DataForge analiza directorios completos y utiliza IA para responder preguntas como:
+Instead of manually reading every file, DataForge analyzes your project, understands its structure, extracts meaningful information using AI, and generates clear, structured reports directly from your terminal.
 
-> ¿Cómo funciona este proyecto?
-
-> ¿Qué hace este archivo?
-
-> ¿Dónde está la lógica principal?
-
-> ¿Qué dependencias existen?
-
-> ¿Cómo está organizada la arquitectura?
-
-En lugar de leer cientos de archivos manualmente, DataForge genera respuestas claras y estructuradas.
+Whether you're joining an existing project, auditing legacy software, documenting your own code, or exploring an open-source repository, DataForge helps you spend less time reading code and more time building software.
 
 ---
 
-# 📦 Instalación
+# 🎯 Philosophy
 
-## 1. Clonar el repositorio
+DataForge follows three simple principles.
+
+| Principle           | Description                                                                                                          |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| 🔒 **Local-first**  | Your files remain on your computer whenever possible. Only the extracted text required for AI analysis is processed. |
+| ⚡ **Fast**          | Built around Groq's ultra-fast inference to minimize waiting time.                                                   |
+| 💼 **Professional** | Clean architecture, modular code and production-ready workflows.                                                     |
+
+---
+
+# 🚀 Why DataForge?
+
+Most AI developer tools focus on **writing code**.
+
+DataForge focuses on **understanding it.**
+
+It helps developers:
+
+* 📖 Understand unfamiliar repositories.
+* 📄 Generate technical documentation.
+* 🧠 Explain complex source code.
+* 🗺️ Visualize project architecture.
+* 🚀 Speed up developer onboarding.
+* ⏱️ Reduce manual analysis time.
+
+---
+
+# ✨ Features
+
+| Feature                    | Description                                                 |
+| -------------------------- | ----------------------------------------------------------- |
+| 🔍 Smart Scan              | Analyze complete projects automatically.                    |
+| 🤖 AI Explanations         | Explain files and source code in plain language.            |
+| 📄 Documentation Generator | Produce professional technical reports.                     |
+| 🗺️ Architecture Map       | Generate project structure maps directly from the terminal. |
+| 💬 Interactive AI          | Ask questions about your own codebase.                      |
+| ⚡ Dry Run Mode             | Estimate token usage before processing.                     |
+| 🔄 Resume Support          | Continue interrupted scans automatically.                   |
+| 📊 Cost Reports            | Transparent token usage and estimated costs.                |
+| 📂 Multi-format Support    | Analyze source code, text files and documentation.          |
+| 🛡️ Secure Configuration   | API Keys stored locally and never committed to Git.         |
+
+---
+
+# ⚡ Quick Start
+
+## Requirements
+
+* Python **3.10** or newer
+* A free **Groq API Key**
+* Internet connection for AI requests
+
+---
+
+## Installation
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/RabbitGamesDev/DataForge-CLI.git
-
 cd DataForge-CLI
 ```
 
----
-
-## 2. Instalar dependencias
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## 3. Obtener una API Key de Groq
-
-DataForge utiliza la API oficial de Groq.
-
-1. Crear una cuenta gratuita:
-
-https://console.groq.com/
-
-2. Acceder al panel de API Keys:
-
-https://console.groq.com/keys
-
-3. Crear una nueva Key.
-
-4. Copiar la clave.
-
-La primera vez que ejecutes DataForge se solicitará automáticamente.
-
----
-
-## 4. Ejecutar
+Run DataForge:
 
 ```bash
 python main.py
 ```
 
-La configuración únicamente se realiza una vez.
+---
+
+# 🔑 Getting a Groq API Key
+
+DataForge uses the Groq API for AI-powered analysis.
+
+Creating an API key only takes a few minutes.
+
+1. Visit **https://console.groq.com/**
+2. Sign in or create a free account.
+3. Open **API Keys**.
+4. Click **Create API Key**.
+5. Copy your key.
+
+During the first launch, DataForge will ask for your API Key and securely save your configuration locally.
+
+Your API key is never uploaded to GitHub.
 
 ---
 
-# ⚙️ Configuración Inicial
+# ⚙️ Configuration
 
-Durante el primer inicio aparecerá un asistente interactivo.
+Run:
+
+```bash
+dataforge config
+```
+
+The setup wizard lets you configure:
+
+* Groq API Key
+* Preferred language
+* Output format
+* Default model
+* Report location
+
+---
+
+# 💻 Commands
+
+| Command     | Description                          |
+| ----------- | ------------------------------------ |
+| `scan`      | Analyze an entire project.           |
+| `explain`   | Explain a specific file.             |
+| `map`       | Generate a project architecture map. |
+| `ask`       | Start an interactive AI session.     |
+| `config`    | Configure DataForge.                 |
+| `--dry-run` | Estimate tokens before processing.   |
+
+---
+
+# 📖 Example Workflow
 
 ```text
-Bienvenido a DataForge CLI!
-
-Ingrese su API Key:
-
-*********************
-
-Idioma
-
-> Español
-  English
-
-Tema
-
-> Dark
-  Light
-```
-
-La configuración se guarda localmente para futuras ejecuciones.
-
----
-
-# 💻 Comandos
-
-## Escanear un proyecto
-
-```bash
-python main.py scan
-```
-
-o
-
-```bash
-python main.py scan C:\MiProyecto
+Project Folder
+      │
+      ▼
+dataforge scan .
+      │
+      ▼
+AI Analysis
+      │
+      ▼
+Technical Report
+      │
+      ▼
+Developer
 ```
 
 ---
 
-## Explicar un archivo
-
-```bash
-python main.py explain archivo.py
-```
-
----
-
-## Chat con tu proyecto
-
-```bash
-python main.py ask
-```
-
----
-
-## Generar documentación
-
-```bash
-python main.py onboard
-```
-
----
-
-## Mapa de arquitectura
-
-```bash
-python main.py map
-```
-
----
-
-# 📂 Estructura del proyecto
+# 📂 Project Structure
 
 ```text
-dataforge-cli/
-
+DataForge-CLI/
 │
 ├── dataforge/
-│   ├── api_handler.py
-│   ├── config_manager.py
-│   ├── core.py
-│   └── __init__.py
+│   ├── core/
+│   ├── ai/
+│   ├── cli/
+│   ├── config/
+│   ├── reports/
+│   └── utils/
 │
-├── reports/
-│
-├── main.py
+├── docs/
+├── tests/
 ├── requirements.txt
+├── main.py
+├── LICENSE
 ├── README.md
 └── .gitignore
 ```
 
 ---
 
-# 📊 Roadmap
+# 🛣️ Roadmap
 
-## Versión 1.0
+## Version 1.0
 
-- [x] Configuración inicial
-- [x] Integración con Groq
-- [x] CLI interactiva
-- [ ] Scan inteligente
-- [ ] Reportes TXT
+* [x] Interactive configuration
+* [x] Groq integration
+* [x] Smart project scanning
+* [x] AI explanations
+* [x] Professional report generation
 
----
+## Version 1.5
 
-## Versión 1.5
+* [ ] PDF export
+* [ ] Markdown export
+* [ ] JSON reports
+* [ ] Interactive dashboard
 
-- [ ] PDFs
-- [ ] Markdown
-- [ ] JSON
-- [ ] Resúmenes automáticos
+## Version 2.0
 
----
-
-## Versión 2.0
-
-- [ ] Chat contextual
-- [ ] Arquitectura ASCII
-- [ ] Memoria entre sesiones
-- [ ] Plugins
+* [ ] Plugin system
+* [ ] Multi-provider AI support
+* [ ] Local LLM support
+* [ ] Project memory
+* [ ] Team collaboration
 
 ---
 
-# 🔒 Seguridad
+# 🔒 Security
 
-DataForge fue diseñado siguiendo una filosofía **Local First**.
+DataForge was designed with privacy in mind.
 
-✔ La configuración permanece en tu equipo.
+* API Keys remain local.
+* Sensitive files are ignored by default.
+* No project files are modified.
+* Reports are generated separately from your source code.
 
-✔ Los archivos originales nunca son modificados.
-
-✔ Solo el texto necesario se envía a la API de Groq.
-
-✔ `.gitignore` protege archivos sensibles.
-
-✔ Las API Keys nunca se publican automáticamente.
+If you discover a security issue, please open a private report before creating a public issue.
 
 ---
 
-# 🤝 Contribuciones
+# 🤝 Contributing
 
-Las contribuciones son bienvenidas.
+Contributions, bug reports and feature suggestions are welcome.
 
-Si encuentras un error o tienes una idea:
-
-1. Haz un Fork.
-
-2. Crea una nueva rama.
-
-3. Envía un Pull Request.
+Please read the **CONTRIBUTING.md** guide before submitting a Pull Request.
 
 ---
 
-# 📜 Licencia
+# 📄 License
 
-Este proyecto está distribuido bajo la licencia Apache 2.0.
+This project is licensed under the **Apache License 2.0**.
 
-Consulta el archivo **LICENSE** para más información.
-
----
-
-# ❤️ Desarrollado por
-
-## RGS Labs™
-
-Construyendo herramientas inteligentes para desarrolladores.
-
-GitHub:
-https://github.com/RabbitGamesDev
+See the **LICENSE** file for more information.
 
 ---
 
 <div align="center">
 
-⭐ Si este proyecto te resulta útil, considera darle una estrella al repositorio.
+# Developed by RGS Labs™
+
+### Building intelligent tools for developers.
+
+⭐ If DataForge helped you, consider giving this repository a star.
 
 </div>
