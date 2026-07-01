@@ -8,7 +8,7 @@ from dataforge.core import get_all_files, read_file_content, save_report, get_si
 # Welcome page hosted on GitHub Pages. Because this is a URL and not a local
 # file, the letter, links or design can be updated at any time on GitHub
 # Pages without ever needing to publish a new version of DataForge CLI.
-WELCOME_URL = " https://rabbitgamesdev.github.io/DataForge-CLI/"
+WELCOME_URL = "https://rabbitgamesdev.github.io/DataForge-CLI/"
 
 def open_welcome_page():
     """Opens the DataForge CLI welcome letter in the user's default browser."""
@@ -76,9 +76,8 @@ def run_onboard(target_path):
 def main():
     init_config()
     if get_config() is None:
-        setup_config()
-        # First-time setup just finished: show the welcome letter.
         open_welcome_page()
+        setup_config()
 
     if len(sys.argv) < 2 or sys.argv[1] in ["--help", "-h", "help"]:
         print("""
