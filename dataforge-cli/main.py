@@ -1,23 +1,8 @@
 import sys
 import os
-import webbrowser
 from dataforge.config_manager import init_config, get_config, setup_config
 from dataforge.api_handler import ask_groq
 from dataforge.core import get_all_files, read_file_content, save_report, get_single_file_content
-
-# Welcome page hosted on GitHub Pages. Because this is a URL and not a local
-# file, the letter, links or design can be updated at any time on GitHub
-# Pages without ever needing to publish a new version of DataForge CLI.
-WELCOME_URL = "https://rabbitgamesdev.github.io/DataForge-CLI/"
-
-def open_welcome_page():
-    """Opens the DataForge CLI welcome letter in the user's default browser."""
-    try:
-        webbrowser.open(WELCOME_URL, new=2)
-    except Exception:
-        # Never block CLI usage if the browser can't be opened
-        # (e.g. headless server, no display available).
-        print(f"👉 Puedes ver la carta de bienvenida aquí: {WELCOME_URL}")
 
 def run_scan(target_path):
     print(f"🔍 Escaneando: {target_path}...")
@@ -75,10 +60,7 @@ def run_onboard(target_path):
 
 def main():
     init_config()
-    if get_config() is None:
-        setup_config()
-        # First-time setup just finished: show the welcome letter.
-        open_welcome_page()
+    if get_config() is None: setup_config()
 
     if len(sys.argv) < 2 or sys.argv[1] in ["--help", "-h", "help"]:
         print("""
@@ -92,7 +74,6 @@ Comandos disponibles:
   map     [ruta]      : Mapa de arquitectura (ASCII).
   ask     [ruta]      : Chat interactivo con tu código.
   onboard [ruta]      : Guía de bienvenida para nuevos devs.
-  welcome              : Abre la carta de bienvenida de DataForge CLI.
         """)
         return
 
@@ -106,7 +87,6 @@ Comandos disponibles:
     elif command == "map": run_map(path)
     elif command == "ask": run_chat(path)
     elif command == "onboard": run_onboard(path)
-    elif command == "welcome": open_welcome_page()
     else: print(f"Comando '{command}' no reconocido. Escribe 'python main.py' para ver ayuda.")
 
 if __name__ == "__main__":
