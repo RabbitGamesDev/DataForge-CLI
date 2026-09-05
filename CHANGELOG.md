@@ -61,3 +61,27 @@ Future releases are expected to include:
 - Checkpoint recovery system.
 - Additional report formats.
 - Plugin architecture.
+
+
+---
+
+## [2.0.0] - 2026-09-05
+
+### 🚀 Major Release: Ecosystem & Multi-Provider Upgrade
+
+This release brings a complete overhaul to DataForge CLI, transitioning into a full hybrid web-and-CLI ecosystem with advanced multi-provider support, local caching, and a professional user dashboard.
+
+### ✨ Added
+
+- **Multi-Provider LLM API Support**: Expanded beyond initial Groq integration to support flexible multi-provider routing.
+- **Advanced CLI Pro Commands (`pro_commands.py`)**: Added dedicated modules for enhanced execution and power features.
+- **Hybrid Licensing & Web Dashboard**: 
+  - Integrated Supabase license verification with local offline caching.
+  - Web frontend management synced via URL parameters from Lemon Squeezy.
+  - Management portal and web assets (`index.html`, favicon suite, and configuration interfaces).
+- **Token Optimization**: Integrated `tiktoken` for advanced token tracking and cost optimization.
+- **Robust Configuration Management**: New config handling (`config_manager.py`) and API communication layer (`api_handler.py`).
+- **Comprehensive Marketing & Media Assets**: Included official launch trailers, teasers, promotional artwork, and production elements for community rollout.
+
+---
+
