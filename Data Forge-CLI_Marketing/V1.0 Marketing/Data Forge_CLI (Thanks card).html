@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome • DataForge CLI</title>
+<link rel="icon" href="gracias.png">
+<style>
+  :root{
+    --bg: #000000;
+    --bg-elev: #0a0d0a;
+    --card: #0d100d;
+    --border: #1c231c;
+    --white: #ffffff;
+    --muted: #9aa39a;
+    --muted-soft: #6f776f;
+    --green: #7CFF00;
+    --green-dim: rgba(124,255,0,0.14);
+    --green-glow: rgba(124,255,0,0.25);
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+    --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "SF Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(124,255,0,0.08), transparent 60%),
+      var(--bg);
+    color:var(--white);
+    font-family:var(--font-ui);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    padding:64px 20px 40px;
+  }
+
+  .page{
+    max-width:900px;
+    margin:0 auto;
+    opacity:0;
+    transform:translateY(14px);
+    animation:fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+
+  @keyframes fadeInUp{
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .page, .fade-item{ animation:none !important; opacity:1 !important; transform:none !important; }
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- Top mark ---------- */
+  .brand-mark{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:36px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--muted-soft);
+  }
+  .brand-mark .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 8px var(--green-glow);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    text-align:center;
+    padding:0 12px 8px;
+  }
+
+  .eyebrow{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--green);
+    background:var(--green-dim);
+    border:1px solid rgba(124,255,0,0.3);
+    padding:6px 14px;
+    border-radius:100px;
+    margin-bottom:22px;
+  }
+
+  h1{
+    font-size:clamp(32px, 5vw, 46px);
+    line-height:1.15;
+    letter-spacing:-0.02em;
+    margin:0 0 16px;
+    font-weight:700;
+  }
+
+  .subtitle{
+    color:var(--muted);
+    font-size:17px;
+    margin:0 auto;
+    max-width:480px;
+  }
+
+  /* ---------- Card wrapper ---------- */
+  .card{
+    background:linear-gradient(180deg, var(--card), var(--bg-elev));
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:48px;
+    margin-top:44px;
+    box-shadow:
+      0 30px 60px -30px rgba(0,0,0,0.8),
+      0 0 0 1px rgba(255,255,255,0.02) inset;
+  }
+
+  @media (max-width:640px){
+    .card{ padding:28px 20px; }
+  }
+
+  /* ---------- Thank you image ---------- */
+  .thankyou-image{
+    display:flex;
+    justify-content:center;
+    margin-bottom:8px;
+  }
+  .thankyou-image img{
+    width:100%;
+    max-width:380px;
+    border-radius:var(--radius-md);
+    border:1px solid var(--border);
+    box-shadow:
+      0 0 0 1px rgba(124,255,0,0.08),
+      0 40px 60px -30px rgba(124,255,0,0.15),
+      0 20px 40px -20px rgba(0,0,0,0.7);
+    display:block;
+  }
+
+  /* ---------- Letter ---------- */
+  .letter{
+    margin-top:44px;
+    padding-top:40px;
+    border-top:1px solid var(--border);
+  }
+
+  .letter-label{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--muted-soft);
+    margin-bottom:22px;
+  }
+
+  .letter p{
+    color:#d7ddd7;
+    font-size:16px;
+    margin:0 0 20px;
+  }
+
+  .letter p.lede{
+    font-size:20px;
+    color:var(--white);
+    font-weight:500;
+    line-height:1.5;
+  }
+
+  .letter .highlight{
+    color:var(--green);
+    font-weight:600;
+  }
+
+  .letter .principles{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:8px 0 26px;
+  }
+  .letter .principles span{
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--green);
+    background:var(--green-dim);
+    border:1px solid rgba(124,255,0,0.25);
+    padding:6px 12px;
+    border-radius:100px;
+  }
+
+  .signature{
+    margin-top:36px;
+    padding-top:24px;
+    border-top:1px solid var(--border);
+    color:var(--muted);
+    font-size:15px;
+  }
+  .signature strong{
+    display:block;
+    color:var(--white);
+    font-size:16px;
+    margin-bottom:2px;
+  }
+
+  /* ---------- Divider ---------- */
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin:56px 0 32px;
+    color:var(--muted-soft);
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+  }
+  .divider::before, .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+
+  /* ---------- Quick links ---------- */
+  .links-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:14px;
+  }
+  @media (max-width:640px){
+    .links-grid{ grid-template-columns:1fr; }
+  }
+
+  .link-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:18px 20px;
+    background:var(--bg-elev);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    text-decoration:none;
+    color:var(--white);
+    transition:border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .link-card:hover{
+    border-color:rgba(124,255,0,0.45);
+    background:#0f130f;
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px -12px rgba(124,255,0,0.2);
+  }
+  .link-card:focus-visible{
+    outline:2px solid var(--green);
+    outline-offset:2px;
+  }
+
+  .link-card .link-text{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .link-card .link-title{
+    font-size:15px;
+    font-weight:600;
+  }
+  .link-card .link-desc{
+    font-size:12.5px;
+    color:var(--muted-soft);
+  }
+  .link-card .arrow{
+    color:var(--green);
+    font-size:16px;
+    flex-shrink:0;
+    transition:transform 0.25s ease;
+  }
+  .link-card:hover .arrow{
+    transform:translateX(3px);
+  }
+
+  /* ---------- Support ---------- */
+  .support{
+    margin-top:40px;
+    padding:26px 28px;
+    background:var(--green-dim);
+    border:1px solid rgba(124,255,0,0.25);
+    border-radius:var(--radius-md);
+  }
+  .support h3{
+    margin:0 0 8px;
+    font-size:16px;
+    color:var(--white);
+  }
+  .support p{
+    margin:0 0 16px;
+    color:#c9d4c9;
+    font-size:14.5px;
+  }
+  .support a.btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--green);
+    color:#04220a;
+    font-weight:700;
+    font-size:14px;
+    padding:10px 18px;
+    border-radius:100px;
+    text-decoration:none;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .support a.btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 10px 24px -8px rgba(124,255,0,0.5);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    text-align:center;
+    margin-top:56px;
+    color:var(--muted-soft);
+    font-size:12.5px;
+    letter-spacing:0.02em;
+  }
+  footer .love{
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  footer .love .heart{
+    color:var(--green);
+  }
+  footer .meta{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--muted-soft);
+  }
+  footer .meta span{
+    margin:0 8px;
+    color:#3a413a;
+  }
+</style>
+</head>
+<body>
+
+  <div class="page">
+
+    <div class="brand-mark"><span class="dot"></span>RGS LABS™ — DATAFORGE CLI</div>
+
+    <section class="hero">
+      <span class="eyebrow">Installation complete</span>
+      <h1>Thank you for downloading<br>DataForge CLI</h1>
+      <p class="subtitle">Welcome to the RGS Labs™ ecosystem.</p>
+    </section>
+
+    <div class="card">
+
+      <div class="thankyou-image">
+        <img src="gracias.png" alt="A handwritten-style thank-you note from the RGS Labs team">
+      </div>
+
+      <article class="letter">
+        <div class="letter-label">A note from RGS Labs™</div>
+
+        <p class="lede">Welcome. Thank you for installing DataForge CLI.</p>
+
+        <p>Software is more than code — it's the trust people place in the tools they choose every day. By downloading DataForge CLI, you've become part of a project built around a simple idea: <span class="highlight">make understanding software easier</span>, so developers can spend less time reading code and more time building meaningful ideas.</p>
+
+        <p>We're genuinely grateful you've chosen to become part of the RGS Labs™ ecosystem. Every project we create is driven by the same philosophy:</p>
+
+        <div class="principles">
+          <span>Local-first</span>
+          <span>Fast</span>
+          <span>Professional</span>
+        </div>
+
+        <p>Whether you're exploring a new codebase, documenting a project, or simply looking for a smarter workflow, we hope DataForge becomes a tool you genuinely enjoy using every day.</p>
+
+        <p>Supporting independent development means more than you might imagine. Every download, every piece of feedback, and every contribution helps us continue building better tools for developers around the world.</p>
+
+        <p>Below you'll find a small thank-you note from our team.</p>
+
+        <div class="signature">
+          <strong>Thank you for being part of this journey.</strong>
+          — The RGS Labs™ Team
+        </div>
+      </article>
+
+    </div>
+
+    <div class="divider">Quick links</div>
+
+    <div class="links-grid">
+      <a class="link-card" href="https://github.com/RabbitGamesDev/DataForge-CLI" target="_blank" rel="noopener noreferrer">
+        <span class="link-text">
+          <span class="link-title">GitHub Repository</span>
+          <span class="link-desc">Source code &amp; releases</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link-card" href="https://github.com/RabbitGamesDev/DataForge-CLI?tab=readme-ov-file" target="_blank" rel="noopener noreferrer">
+        <span class="link-text">
+          <span class="link-title">Documentation</span>
+          <span class="link-desc">Setup &amp; usage guide</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link-card" href="https://github.com/RabbitGamesDev/DataForge-CLI?tab=contributing-ov-file" target="_blank" rel="noopener noreferrer">
+        <span class="link-text">
+          <span class="link-title">Contributing</span>
+          <span class="link-desc">Contribute your ideas to the development of Data Forge CLI.</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link-card" href="https://github.com/RabbitGamesDev/DataForge-CLI?tab=security-ov-file" target="_blank" rel="noopener noreferrer">
+        <span class="link-text">
+          <span class="link-title">Security Policy</span>
+          <span class="link-desc">Note on reporting security vulnerabilities</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+      <a class="link-card" href="https://github.com/RabbitGamesDev/DataForge-CLI?tab=Apache-2.0-1-ov-file" target="_blank" rel="noopener noreferrer">
+        <span class="link-text">
+          <span class="link-title">License</span>
+          <span class="link-desc">Apache License 2.0</span>
+        </span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <div class="support">
+      <h3>Something not working as expected?</h3>
+      <p>If you encounter bugs or have ideas for new features, we'd love to hear from you. Opening an Issue is the fastest way to reach us.</p>
+      <a class="btn" href="https://github.com/RabbitGamesDev/DataForge-CLI/issues" target="_blank" rel="noopener noreferrer">Open an Issue →</a>
+    </div>
+
+    <footer>
+      <div class="love">Developed with <span class="heart">♥</span> by RGS Labs™</div>
+      <div class="meta">2026 <span>•</span> DataForge CLI <span>•</span> Apache License 2.0</div>
+    </footer>
+
+  </div>
+
+<script>
+  window.scrollTo(0, 0);
+</script>
+</body>
+</html>

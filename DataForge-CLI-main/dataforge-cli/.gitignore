@@ -1,0 +1,22 @@
+# --- Seguridad (Muy importante) ---
+config.json
+secret.key
+*.key
+.env
+
+# --- Caché y Archivos de Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- Carpetas de DataForge ---
+# Excluimos los reportes generados para no ensuciar el repo
+dataforge-reports/
+.dataforge/
+
+# --- Otros archivos del sistema ---
+.DS_Store
+Thumbs.db
+.venv/
+venv/
