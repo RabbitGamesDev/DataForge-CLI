@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="github/assets/Data Forge_CLI (GitHub Banner).jpg" width="100%" alt="DataForge CLI Banner">
+<img src=".github/assets/Data%20Forge_CLI%20(GitHub%20Banner)%20.jpg" width="100%" alt="DataForge CLI Banner">
 
 <br><br>
 
@@ -22,9 +22,9 @@ DataForge turns any codebase into structured knowledge — architecture reports,
 
 <br>
 
-[**Website**] [The website is under development.] ·
-[**Docs**] [The website is under development.] ·
-[**Pricing**] [The website is under development.] ·
+[**Website**](https://rabbitgamesdev.github.io/DataForge-CLI_Website/) ·
+[**Docs**](https://rabbitgamesdev.github.io/DataForge-CLI_Website/docs.html) ·
+[**Pricing**](https://rabbitgamesdev.github.io/DataForge-CLI_Website/plans.html) ·
 [**GitHub**](https://github.com/RabbitGamesDev/DataForge-CLI)
 
 </div>
@@ -172,7 +172,7 @@ python main.py
 <details>
 <summary><strong>Option 2 — Download as ZIP</strong> (no Git required)</summary>
 
-1. Open the [DataForge CLI Website Installation] [The website is under development.].
+1. Open the [DataForge CLI Website Installation](https://rabbitgamesdev.github.io/DataForge-CLI_Website/installation.html).
 2. Click **ZIP → Download DataForge-CLI-main.zip**.
 3. Extract the archive anywhere on your computer.
 4. Open a terminal inside the extracted `dataforge-cli` folder.
@@ -190,7 +190,7 @@ python main.py
 <details>
 <summary><strong>Option 3 — One-Click Installation</strong></summary>
 
-A one-line installer is also available through the [official DataForge CLI website] [The website is under development.] for Windows, macOS, and Linux.
+A one-line installer is also available through the [official DataForge CLI website](https://rabbitgamesdev.github.io/DataForge-CLI_Website/) for Windows, macOS, and Linux.
 
 </details>
 
@@ -288,7 +288,7 @@ The core CLI remains available under the Apache License 2.0, while Pro and Teams
 | Enterprise report branding | — | — | ✅ |
 | Custom report signature | — | — | ✅ |
 
-→ [See full pricing on the DataForge website] [The website is under development.]
+→ [See full pricing on the DataForge website](https://rabbitgamesdev.github.io/DataForge-CLI_Website/plans.html)
 
 ---
 
@@ -449,7 +449,7 @@ Under normal operation, DataForge does not send your project to a DataForge-cont
 - v2.5 — Integrated static security analysis (SAST)
 - v2.5+ — Secure cloud synchronization for distributed teams
 
-→ [View the full roadmap] [The website is under development.]
+→ [View the full roadmap](https://rabbitgamesdev.github.io/DataForge-CLI_Website/roadmap.html)
 
 ---
 
@@ -477,9 +477,9 @@ The open-source core remains available under Apache 2.0. Commercial features are
 
 <div align="center">
 
-Developed by **[RGS Labs™] [The website is under development.]**
+Developed by **[RGS Labs™](https://rabbitgamesdev.github.io/RGS-Labs/)**
 
-🌐 [Official Website] [The website is under development.] ·
+🌐 [Official Website](https://rabbitgamesdev.github.io/DataForge-CLI_Website/) ·
 💻 [GitHub](https://github.com/RabbitGamesDev/DataForge-CLI) ·
 🐛 [Issues](https://github.com/RabbitGamesDev/DataForge-CLI/issues)
 
