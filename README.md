@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src=".github/assets/Data%20Forge_CLI%20(GitHub%20Banner)%20.jpg" width="100%" alt="DataForge CLI Banner">
+<img src="github/assets/Data%20Forge_CLI%20(GitHub%20Banner)%20.jpg" width="100%" alt="DataForge CLI Banner">
 
 <br><br>
 
