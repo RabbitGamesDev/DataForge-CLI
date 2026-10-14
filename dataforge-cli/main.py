@@ -262,7 +262,12 @@ def run_doc_pro(target_path):
     if not files: return
     
     file_list = "\n".join([os.path.relpath(f, target_path) for f in files[:50]])
-    prompt = f"{get_language_prefix()}Arquitecto Senior. Genera README profesional y documentación técnica basada en:\n{file_list}"
+    source_context = prepare_code_payload(files[:50], max_chars=30000)
+    prompt = (
+        f"{get_language_prefix()}Arquitecto Senior. Genera README profesional y documentación técnica "
+        f"basada en el contenido real de los archivos listados abajo. No inventes funciones que no aparezcan. "
+        f"Indica incertidumbres explícitamente.\n\nARCHIVOS:\n{file_list}\n\nCÓDIGO:\n{source_context}"
+    )
     respuesta = ask_enterprise_ai(prompt)
     
     output = os.path.join(target_path, "PRODUCTION_DOCS.md")
@@ -275,7 +280,12 @@ def run_architecture_pro(target_path):
     files = get_all_files(target_path)
     if not files: return
     file_names = "\n".join([os.path.relpath(f, target_path) for f in files[:50]])
-    prompt = f"{get_language_prefix()}Arquitecto Experto. Genera código Mermaid (graph TD) y explicación basada en:\n{file_names}"
+    source_context = prepare_code_payload(files[:50], max_chars=30000)
+    prompt = (
+        f"{get_language_prefix()}Arquitecto Experto. Genera código Mermaid (graph TD) y explicación "
+        f"basados en el contenido real del código, no solo en nombres de archivos. No inventes dependencias; "
+        f"marca las inferencias como tales.\n\nARCHIVOS:\n{file_names}\n\nCÓDIGO:\n{source_context}"
+    )
     respuesta = ask_enterprise_ai(prompt)
     
     output = os.path.join(target_path, "ARCHITECTURE_REPORT.md")
