@@ -60,15 +60,23 @@ def verify_license_hybrid() -> bool:
 
     now = datetime.now()
 
-    # Validar expiración local inmediata si existe el campo
+    # Validate expiration locally, including ISO timestamps that contain a timezone.
     if data.get("expires_at"):
         try:
-            if now > datetime.fromisoformat(data["expires_at"]):
+            expires_at = datetime.fromisoformat(data["expires_at"])
+            comparison_now = now
+            if expires_at.tzinfo is not None and comparison_now.tzinfo is None:
+                comparison_now = comparison_now.astimezone().replace(tzinfo=None)
+                expires_at = expires_at.astimezone().replace(tzinfo=None)
+            elif expires_at.tzinfo is None and comparison_now.tzinfo is not None:
+                expires_at = expires_at.replace(tzinfo=comparison_now.tzinfo)
+            if comparison_now > expires_at:
                 data["active"] = False
                 with open(LICENSE_FILE, "w", encoding="utf-8") as f:
                     json.dump(data, f, indent=4)
                 return False
-        except Exception:
+        except (TypeError, ValueError, OverflowError):
+            # Malformed expiry metadata must not crash the CLI; server validation still applies.
             pass
 
     last_checked_str = data.get("last_checked")
