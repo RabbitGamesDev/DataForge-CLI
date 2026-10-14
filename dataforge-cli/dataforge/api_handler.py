@@ -1,6 +1,7 @@
 import json
 import urllib.error
 import urllib.request
+import urllib.parse
 
 from groq import Groq
 from dataforge.config_manager import get_config
