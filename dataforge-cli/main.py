@@ -60,27 +60,43 @@ def verify_license_hybrid() -> bool:
 
     now = datetime.now()
 
-    # Validar expiración local inmediata si existe el campo
+    # Validate expiration locally, including ISO timestamps that contain a timezone.
     if data.get("expires_at"):
         try:
-            if now > datetime.fromisoformat(data["expires_at"]):
+            expires_at = datetime.fromisoformat(data["expires_at"])
+            comparison_now = now
+            if expires_at.tzinfo is not None and comparison_now.tzinfo is None:
+                comparison_now = comparison_now.astimezone().replace(tzinfo=None)
+                expires_at = expires_at.astimezone().replace(tzinfo=None)
+            elif expires_at.tzinfo is None and comparison_now.tzinfo is not None:
+                expires_at = expires_at.replace(tzinfo=comparison_now.tzinfo)
+            if comparison_now > expires_at:
                 data["active"] = False
                 with open(LICENSE_FILE, "w", encoding="utf-8") as f:
                     json.dump(data, f, indent=4)
                 return False
-        except Exception:
+        except (TypeError, ValueError, OverflowError):
+            # Malformed expiry metadata must not crash the CLI; server validation still applies.
             pass
 
     last_checked_str = data.get("last_checked")
     should_check = True
-    
+    last_checked = None
+
     if last_checked_str:
         try:
             last_checked = datetime.fromisoformat(last_checked_str)
-            if (now - last_checked).days < 7:
+            comparison_now = now
+            if last_checked.tzinfo is not None and comparison_now.tzinfo is None:
+                comparison_now = comparison_now.astimezone().replace(tzinfo=None)
+            elif last_checked.tzinfo is None and comparison_now.tzinfo is not None:
+                last_checked = last_checked.replace(tzinfo=comparison_now.tzinfo)
+            age_seconds = (comparison_now - last_checked).total_seconds()
+            if 0 <= age_seconds < 7 * 24 * 60 * 60:
                 should_check = False
-        except Exception:
-            pass
+        except (TypeError, ValueError, OverflowError):
+            last_checked = None
+            should_check = True
 
     if should_check:
         machine_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, platform.node()))
@@ -103,16 +119,27 @@ def verify_license_hybrid() -> bool:
                     with open(LICENSE_FILE, "w", encoding="utf-8") as f:
                         json.dump(data, f, indent=4)
                     return False
-                
-                # Actualizar datos con sincronización exitosa de servidor
+
                 data["tier"] = res_data.get("tier", data.get("tier"))
                 data["expires_at"] = res_data.get("expires_at", data.get("expires_at"))
                 data["last_checked"] = now.isoformat()
                 with open(LICENSE_FILE, "w", encoding="utf-8") as f:
                     json.dump(data, f, indent=4)
         except Exception:
-            # Modo Offline Grace Period (si falla la red, permite acceso si se verificó hace menos de 7 días)
-            pass
+            # Offline access is allowed only after a recent successful server check.
+            if last_checked is None:
+                return False
+            try:
+                comparison_now = now
+                if last_checked.tzinfo is not None and comparison_now.tzinfo is None:
+                    comparison_now = comparison_now.astimezone().replace(tzinfo=None)
+                elif last_checked.tzinfo is None and comparison_now.tzinfo is not None:
+                    last_checked = last_checked.replace(tzinfo=comparison_now.tzinfo)
+                age_seconds = (comparison_now - last_checked).total_seconds()
+                if not (0 <= age_seconds < 7 * 24 * 60 * 60):
+                    return False
+            except (TypeError, ValueError, OverflowError):
+                return False
 
     return True
 
@@ -133,34 +160,7 @@ def is_teams_active() -> bool:
     return data.get("tier", "").lower() == "teams"
 
 def ask_enterprise_ai(prompt):
-    config = get_config() or {}
-    provider = config.get("provider", "groq").lower()
-    
-    if provider == "ollama":
-        try:
-            url = "http://localhost:11434/api/generate"
-            payload = json.dumps({
-                "model": "llama3",
-                "prompt": prompt,
-                "stream": False
-            }).encode("utf-8")
-            req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
-            with urllib.request.urlopen(req, timeout=45) as response:
-                res_data = json.loads(response.read().decode("utf-8"))
-                return res_data.get("response", "Error: Respuesta vacía de Ollama.")
-        except Exception as e:
-            return f"⚠️ Error de conexión con Ollama local: {e}"
-
-    if provider == "claude":
-        system_directive = "[EXPERT CLAUDE ENGINE: Prioritize deep architectural nuance, pristine production documentation structure.]\n"
-        return ask_groq(system_directive + prompt)
-    elif provider == "openai":
-        system_directive = "[EXPERT OPENAI ENGINE: Prioritize absolute logical precision, strict code correctness.]\n"
-        return ask_groq(system_directive + prompt)
-    elif provider == "gemini":
-        system_directive = "[EXPERT GEMINI ENGINE: Prioritize exhaustive global context handling, multi-step structural breakdown.]\n"
-        return ask_groq(system_directive + prompt)
-    
+    """Route through the provider adapter shared by every command."""
     return ask_groq(prompt)
 
 def get_footer_branding():
@@ -270,7 +270,12 @@ def run_doc_pro(target_path):
     if not files: return
     
     file_list = "\n".join([os.path.relpath(f, target_path) for f in files[:50]])
-    prompt = f"{get_language_prefix()}Arquitecto Senior. Genera README profesional y documentación técnica basada en:\n{file_list}"
+    source_context = prepare_code_payload(files[:50], max_chars=30000)
+    prompt = (
+        f"{get_language_prefix()}Arquitecto Senior. Genera README profesional y documentación técnica "
+        f"basada en el contenido real de los archivos listados abajo. No inventes funciones que no aparezcan. "
+        f"Indica incertidumbres explícitamente.\n\nARCHIVOS:\n{file_list}\n\nCÓDIGO:\n{source_context}"
+    )
     respuesta = ask_enterprise_ai(prompt)
     
     output = os.path.join(target_path, "PRODUCTION_DOCS.md")
@@ -283,7 +288,12 @@ def run_architecture_pro(target_path):
     files = get_all_files(target_path)
     if not files: return
     file_names = "\n".join([os.path.relpath(f, target_path) for f in files[:50]])
-    prompt = f"{get_language_prefix()}Arquitecto Experto. Genera código Mermaid (graph TD) y explicación basada en:\n{file_names}"
+    source_context = prepare_code_payload(files[:50], max_chars=30000)
+    prompt = (
+        f"{get_language_prefix()}Arquitecto Experto. Genera código Mermaid (graph TD) y explicación "
+        f"basados en el contenido real del código, no solo en nombres de archivos. No inventes dependencias; "
+        f"marca las inferencias como tales.\n\nARCHIVOS:\n{file_names}\n\nCÓDIGO:\n{source_context}"
+    )
     respuesta = ask_enterprise_ai(prompt)
     
     output = os.path.join(target_path, "ARCHITECTURE_REPORT.md")
@@ -305,7 +315,16 @@ def run_export(target_path, fmt):
     if fmt == "json":
         with open(output_path, "w", encoding="utf-8") as out: json.dump({"content": content}, out, indent=4)
     elif fmt == "html":
-        with open(output_path, "w", encoding="utf-8") as out: out.write(f"<html><body><pre>{content}</pre></body></html>")
+        import html
+        safe_content = html.escape(content)
+        with open(output_path, "w", encoding="utf-8") as out:
+            out.write(
+                '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+                '<meta name="viewport" content="width=device-width, initial-scale=1">'
+                '<title>DataForge Report</title></head><body><pre>'
+                + safe_content
+                + '</pre></body></html>'
+            )
     else:
         with open(output_path, "w", encoding="utf-8") as out: out.write(content)
     cprint(f"✅ Exportado a: {output_path}", "success")
@@ -447,6 +466,12 @@ def main():
         return
 
     cmd = sys.argv[1]
+    if cmd == "preset":
+        preset_name = sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else ""
+        target_arg = sys.argv[3] if len(sys.argv) > 3 and not sys.argv[3].startswith("--") else "."
+        run_preset(preset_name, os.path.abspath(target_arg))
+        return
+
     target = os.path.abspath(sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else ".")
     
     if cmd == "scan": run_scan(target)
@@ -458,7 +483,6 @@ def main():
     elif cmd == "doc++": run_doc_pro(target)
     elif cmd == "architecture++": run_architecture_pro(target)
     elif cmd == "export": run_export(target, sys.argv[3] if len(sys.argv) > 3 else "--md")
-    elif cmd == "preset": run_preset(sys.argv[2] if len(sys.argv) > 2 else "", target)
     else:
         show_help_table()
 
